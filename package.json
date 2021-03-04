@@ -1,0 +1,20 @@
+{
+  "name": "neural-food-backend",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khmilevoi/neural-food-backend.git"
+  },
+  "keywords": [],
+  "author": "khmilevoi, temchur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khmilevoi/neural-food-backend/issues"
+  },
+  "homepage": "https://github.com/khmilevoi/neural-food-backend#readme"
+}
