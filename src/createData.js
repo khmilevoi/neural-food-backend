@@ -28,9 +28,9 @@ const toCSV = async (classes, data) => {
     const name = classes[index];
     const paths = data[name];
 
-    const images = await loadImages(paths);
-
     log.nextGroup(name);
+
+    const images = await loadImages(paths);
 
     items.push(images.map((image) => createCsvLine(index, image)));
   }
@@ -58,12 +58,13 @@ const createCsvLine = (id, image) => {
 
 const loadImages = async (paths) => {
   const images = [];
+  log.setNumbersOfImages(paths.length);
   log.nextImage("none", 0);
 
   for (const path of paths) {
-    const image = await loadImage(path);
-
     log.nextImage(path);
+
+    const image = await loadImage(path);
 
     images.push(image);
   }

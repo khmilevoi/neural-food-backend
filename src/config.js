@@ -1,7 +1,7 @@
 exports.config = {
     image: {
-        width: 28,
-        height: 28,
+        width: 100,
+        height: 100,
         channels: 1
     }
 }

@@ -10,20 +10,24 @@ class Log {
     this.numberOfGroups = num;
   }
 
+  prepareNumber(num, max) {
+    return ((num * 100) / max).toFixed(2);
+  }
+
   setNumbersOfImages(num) {
     this.numberOfImages = num;
   }
 
   nextGroup(name, index) {
     this.currentGroup = name;
-    this.groupIndex = index || (this.groupIndex + 1);
+    this.groupIndex = index || this.groupIndex + 1;
 
     this.print();
   }
 
   nextImage(name, index) {
     this.currentImage = name;
-    this.imageIndex = index || (this.imageIndex + 1);
+    this.imageIndex = index || this.imageIndex + 1;
 
     this.print();
   }
@@ -31,13 +35,14 @@ class Log {
   print() {
     console.clear();
 
+    console.log("---------------------------------------------")
     console.log(
       "group progress",
-      (this.groupIndex * 100) / this.numberOfGroups
+      this.prepareNumber(this.groupIndex, this.numberOfGroups)
     );
     console.log(
       "image progress",
-      (this.imageIndex * 100) / this.numberOfImages
+      this.prepareNumber(this.imageIndex, this.numberOfImages)
     );
     console.log("group: ", this.currentGroup);
     console.log("image: ", this.currentImage);
