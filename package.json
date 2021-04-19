@@ -2,9 +2,11 @@
   "name": "neural-food-backend",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "resources/train.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "train": "node ./resources/train.js",
+    "data": "node ./resources/createData.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/khmilevoi/neural-food-backend/issues"
   },
-  "homepage": "https://github.com/khmilevoi/neural-food-backend#readme"
+  "homepage": "https://github.com/khmilevoi/neural-food-backend#readme",
+  "dependencies": {
+    "@tensorflow/tfjs": "^3.3.0",
+    "@tensorflow/tfjs-node": "^3.3.0",
+    "jimp": "^0.16.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
 }
