@@ -2,11 +2,11 @@
   "name": "neural-food-backend",
   "version": "0.0.0",
   "description": "",
-  "main": "resources/train.js",
+  "main": "src/train.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "train": "node ./resources/train.js",
-    "data": "node ./resources/createData.js"
+    "train": "node src/train.js",
+    "data": "node src/createData.js"
   },
   "repository": {
     "type": "git",

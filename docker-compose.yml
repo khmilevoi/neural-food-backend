@@ -1,0 +1,10 @@
+version: '3'
+services:
+  root:
+    image: node:latest
+    volumes:
+      - ./resources:/resources
+      - ./src:/src
+    build:
+      dockerfile: ./Dockerfile
+      context: .
