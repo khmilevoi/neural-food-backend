@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "outDir": "dist/",
+    "rootDirs": [
+      "src/",
+      "tests/",
+    ],
+    "allowJs": true,
+    "baseUrl": "src",
+    "target": "ES2020"
+  },
+  "exclude": [
+    "node_modules",
+  ]
+}

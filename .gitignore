@@ -1,6 +1,5 @@
 /.idea
 /node_modules
-/resources/images/
-/resources/prepared/
-/resources/data/
-/resources/model/
+/resources/
+/dist/
+/coverage/
