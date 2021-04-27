@@ -1,0 +1,14 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "moduleFileExtensions": [
+    "ts",
+    "js",
+    "node"
+  ],
+  "moduleDirectories": [
+    "src",
+    "node_modules",
+    "tests"
+  ]
+}
