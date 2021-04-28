@@ -1,4 +1,4 @@
-import { app } from "bootstrap";
+import { app, server } from "bootstrap";
 import fs from "fs/promises";
 import path from "path";
 import request from "supertest";
@@ -27,7 +27,7 @@ describe("main", function () {
   });
 
   it("should load model", async function () {
-    const response = await request(app).get("/model");
+    const response = await request(server).get("/model");
 
     expect(response.status).toBe(200);
   });
@@ -37,5 +37,9 @@ describe("main", function () {
 
     expect(response.body.list.length).not.toBeUndefined();
     expect(response.status).toBe(200);
+  });
+
+  afterAll(() => {
+    server.close();
   });
 });

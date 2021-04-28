@@ -21,6 +21,6 @@ app.get("/labels", async (req, res) => {
     })
 })
 
-app.listen(3000, () => {
+export const server = app.listen(3000, () => {
     console.log("Started on 3000 port")
 })
