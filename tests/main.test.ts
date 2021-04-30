@@ -21,8 +21,8 @@ describe("main", function () {
       await createMockFile("model.json", JSON.stringify({}));
     }
 
-    if (!files.includes("labels.txt")) {
-      await createMockFile("labels.txt", JSON.stringify({}));
+    if (!files.includes("labels.json")) {
+      await createMockFile("labels.json", JSON.stringify({}));
     }
   });
 
