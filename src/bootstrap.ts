@@ -1,13 +1,10 @@
 import cors from "cors";
-import dotenv from "dotenv";
-import express from "express";
+import express, {Request} from "express";
 import http from "http";
+import https from "https";
 import {generateLabelsFromFile} from "labels";
-
-
-dotenv.config({
-    path: "./.env"
-});
+import {fileMapper} from "./file-mapper";
+import {createProxyMiddleware} from 'http-proxy-middleware'
 
 const isLabels = process.argv[2] === "labels";
 
@@ -17,9 +14,16 @@ if (isLabels) {
 
 export const app = express();
 
-app.use(cors());
+app.use("/model/:file", createProxyMiddleware({
+    target: "<TARGET>",
+    router: (req) => {
+        const {file} = req.params as {file: keyof typeof fileMapper}
 
-app.use("/model", express.static("resources/model.json"));
+        return fileMapper[file]
+    }
+}));
+
+app.use(cors());
 app.use("/labels", express.static("resources/labels.json"));
 
 export const server = http
@@ -27,3 +31,9 @@ export const server = http
     .listen(process.env.PORT || 3000, () => {
         console.log("Started on", process.env.PORT || 3000);
     });
+
+const request = (url: string) => {
+    return new Promise((resolve) => {
+        https.request(url, res => resolve(res))
+    })
+}
