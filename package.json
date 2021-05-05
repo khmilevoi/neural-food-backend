@@ -9,7 +9,7 @@
     "build:watch": "webpack --watch",
     "dev:watch": "nodemon ./dist/main.js --watch ./dist",
     "start:dev": "npm-run-all --parallel build:watch dev:watch",
-    "start": "npm run build && node ./dist/main.js",
+    "start": "node ./dist/main.js",
     "labels": "nodemon ./dist/main.js labels --watch ./dist",
     "labels:dev": "npm-run-all --parallel build:watch labels"
   },
