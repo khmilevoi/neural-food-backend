@@ -9,7 +9,9 @@
     "build:watch": "webpack --watch",
     "dev:watch": "nodemon ./dist/main.js --watch ./dist",
     "start:dev": "npm-run-all --parallel build:watch dev:watch",
-    "start": "node ./build/main.js"
+    "start": "node ./dist/main.js",
+    "labels": "nodemon ./dist/main.js labels --watch ./dist",
+    "labels:dev": "npm-run-all --parallel build:watch labels"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,8 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "dotenv": "^8.5.1",
+    "express": "^4.17.1",
+    "google-search-results-nodejs": "^2.0.1"
   }
 }

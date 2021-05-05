@@ -1,7 +1,19 @@
+import dotenv from 'dotenv'
 import cors from "cors";
 import express from "express";
 import { readFileSync } from "fs";
 import https from "https";
+import {generateLabelsFromFile} from "labels";
+
+dotenv.config({
+    path: "./.env"
+});
+
+const isLabels = process.argv[2] === "labels";
+
+if(isLabels) {
+    generateLabelsFromFile().then()
+}
 
 export const app = express();
 
