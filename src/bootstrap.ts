@@ -24,6 +24,6 @@ app.use("/labels", express.static("resources/labels.json"));
 
 export const server = http
     .createServer(app)
-    .listen(3000, () => {
-        console.log("Started on 3000 port");
+    .listen(process.env.PORT || 3000, () => {
+        console.log("Started on", process.env.PORT || 3000);
     });
