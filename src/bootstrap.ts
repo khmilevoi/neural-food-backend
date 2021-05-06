@@ -18,6 +18,8 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
     const {file} = req.params;
     const proxy = fileMapper[file];
     
+    console.log(file, proxy);
+    
     if (proxy) {
         const [ext] = file.split(".").reverse();
         
