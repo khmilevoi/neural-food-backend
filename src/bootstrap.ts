@@ -3,8 +3,8 @@ import express, {Request} from "express";
 import http from "http";
 import https from "https";
 import {generateLabelsFromFile} from "labels";
-import {fileMapper} from "./file-mapper";
-import {createProxyMiddleware} from 'http-proxy-middleware'
+import {fileMapper} from "file-mapper";
+
 
 const isLabels = process.argv[2] === "labels";
 
@@ -14,14 +14,22 @@ if (isLabels) {
 
 export const app = express();
 
-app.use("/model/:file", createProxyMiddleware({
-    target: "<TARGET>",
-    router: (req) => {
-        const {file} = req.params as {file: keyof typeof fileMapper}
-
-        return fileMapper[file]
+app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) => {
+    const {file} = req.params;
+    
+    if (file) {
+        https.get(fileMapper[file], externalRes => {
+            const body: Buffer[] = [];
+            
+            externalRes.on("data", chunk => body.push(chunk));
+            
+            externalRes.on("end", () => res.end(Buffer.concat(body)));
+        });
+    } else {
+        res.status(404);
+        res.end();
     }
-}));
+});
 
 app.use(cors());
 app.use("/labels", express.static("resources/labels.json"));
@@ -31,9 +39,3 @@ export const server = http
     .listen(process.env.PORT || 3000, () => {
         console.log("Started on", process.env.PORT || 3000);
     });
-
-const request = (url: string) => {
-    return new Promise((resolve) => {
-        https.request(url, res => resolve(res))
-    })
-}
