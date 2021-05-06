@@ -18,8 +18,11 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
     const {file} = req.params;
     const proxy = fileMapper[file]
     
-    
     if (proxy) {
+        const [ext] = file.split(".").reverse()
+        
+        res.setHeader("Content-type", contentTypeByExtension(ext))
+        
         https.get(proxy, externalRes => {
             const body: Buffer[] = [];
             
@@ -32,6 +35,18 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
         res.end();
     }
 });
+
+const contentTypeByExtension = (ext: string) => {
+    if(ext === "bin") {
+        return "application/x-binary"
+    }
+    
+    if(ext === "json") {
+        return "application/json"
+    }
+    
+    return "text/plain"
+}
 
 app.use(cors());
 app.use("/labels", express.static("resources/labels.json"));
