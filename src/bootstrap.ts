@@ -5,7 +5,6 @@ import http from "http";
 import https from "https";
 import {generateLabelsFromFile} from "labels";
 
-
 const isLabels = process.argv[2] === "labels";
 
 if (isLabels) {
@@ -13,6 +12,8 @@ if (isLabels) {
 }
 
 export const app = express();
+
+app.use(cors());
 
 app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) => {
     const {file} = req.params;
@@ -32,7 +33,7 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
             
             externalRes.on("end", () => {
                 const buffer = Buffer.concat(body);
-                console.log(buffer.toString());
+
                 res.setHeader("Content-Length", buffer.length)
                 res.status(200);
                 res.end(buffer);
@@ -43,20 +44,18 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
         res.end();
     }
 });
-
 const contentTypeByExtension = (ext: string) => {
     if (ext === "bin") {
         return "application/x-binary";
-    }
     
+    }
     if (ext === "json") {
         return "application/json";
-    }
     
+    }
     return "text/plain";
-};
 
-app.use(cors());
+};
 app.use("/labels", express.static("resources/labels.json"));
 
 export const server = http
