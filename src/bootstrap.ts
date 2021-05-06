@@ -28,7 +28,9 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
             
             externalRes.on("data", chunk => body.push(chunk));
             
-            externalRes.on("end", () => res.end(Buffer.concat(body).toString()));
+            externalRes.on("end", () => {
+                res.send(Buffer.concat(body).toString());
+            });
         });
     } else {
         res.status(404);
