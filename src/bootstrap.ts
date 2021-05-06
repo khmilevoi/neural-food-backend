@@ -1,9 +1,9 @@
 import cors from "cors";
 import express, {Request} from "express";
+import {fileMapper} from "file-mapper";
 import http from "http";
 import https from "https";
 import {generateLabelsFromFile} from "labels";
-import {fileMapper} from "file-mapper";
 
 
 const isLabels = process.argv[2] === "labels";
@@ -16,12 +16,12 @@ export const app = express();
 
 app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) => {
     const {file} = req.params;
-    const proxy = fileMapper[file]
+    const proxy = fileMapper[file];
     
     if (proxy) {
-        const [ext] = file.split(".").reverse()
+        const [ext] = file.split(".").reverse();
         
-        res.setHeader("Content-type", contentTypeByExtension(ext))
+        res.setHeader("Content-type", contentTypeByExtension(ext));
         
         https.get(proxy, externalRes => {
             const body: Buffer[] = [];
@@ -29,7 +29,8 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
             externalRes.on("data", chunk => body.push(chunk));
             
             externalRes.on("end", () => {
-                res.send(Buffer.concat(body).toString());
+                res.status(200);
+                res.end(Buffer.concat(body));
             });
         });
     } else {
@@ -39,16 +40,16 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
 });
 
 const contentTypeByExtension = (ext: string) => {
-    if(ext === "bin") {
-        return "application/x-binary"
+    if (ext === "bin") {
+        return "application/x-binary";
     }
     
-    if(ext === "json") {
-        return "application/json"
+    if (ext === "json") {
+        return "application/json";
     }
     
-    return "text/plain"
-}
+    return "text/plain";
+};
 
 app.use(cors());
 app.use("/labels", express.static("resources/labels.json"));
