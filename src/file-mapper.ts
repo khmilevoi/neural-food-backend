@@ -1,5 +1,5 @@
 export const fileMapper = {
-    "model.json": "https://download843.mediafire.com/5hm1ds1gr9ug/b0wt2pee988gim2/model.json",
+    "model.json": "https://drive.google.com/u/0/uc?id=1XkBsAST3aDexOTl8H4JLJ51PdPrtekCQ&export=download",
     "group1-shard1of22.bin": "https://download1484.mediafire.com/brp69ceai1tg/iii6hwbqz2jrwfg/group1-shard1of22.bin",
     "group1-shard2of22.bin": "https://download1084.mediafire.com/q329lg0rreog/mgadoy8c51vbktr/group1-shard2of22.bin",
     "group1-shard3of22.bin": "https://download854.mediafire.com/fg3ionprc8vg/lmxq04okx181f6c/group1-shard3of22.bin",
