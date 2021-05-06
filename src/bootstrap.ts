@@ -30,6 +30,7 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
             
             externalRes.on("end", () => {
                 const buffer = Buffer.concat(body);
+                console.log(buffer.toString());
                 res.setHeader("Content-Length", buffer.length)
                 res.status(200);
                 res.end(buffer);
