@@ -16,9 +16,10 @@ export const app = express();
 
 app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) => {
     const {file} = req.params;
+    const proxy = fileMapper[file]
     
-    if (file) {
-        https.get(fileMapper[file], externalRes => {
+    if (proxy) {
+        https.get(proxy, externalRes => {
             const body: Buffer[] = [];
             
             externalRes.on("data", chunk => body.push(chunk));
