@@ -29,8 +29,10 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
             externalRes.on("data", chunk => body.push(chunk));
             
             externalRes.on("end", () => {
+                const buffer = Buffer.concat(body);
+                res.setHeader("Content-Length", buffer.length)
                 res.status(200);
-                res.end(Buffer.concat(body));
+                res.end(buffer);
             });
         });
     } else {
