@@ -18,13 +18,14 @@ app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) =
     const {file} = req.params;
     const proxy = fileMapper[file]
     
+    
     if (proxy) {
         https.get(proxy, externalRes => {
             const body: Buffer[] = [];
             
             externalRes.on("data", chunk => body.push(chunk));
             
-            externalRes.on("end", () => res.end(Buffer.concat(body)));
+            externalRes.on("end", () => res.end(Buffer.concat(body).toString()));
         });
     } else {
         res.status(404);
