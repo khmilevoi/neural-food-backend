@@ -1,13 +1,10 @@
 import cors from "cors";
-import dotenv from "dotenv";
-import express from "express";
+import express, {Request} from "express";
 import http from "http";
+import https from "https";
 import {generateLabelsFromFile} from "labels";
+import {fileMapper} from "file-mapper";
 
-
-dotenv.config({
-    path: "./.env"
-});
 
 const isLabels = process.argv[2] === "labels";
 
@@ -17,9 +14,24 @@ if (isLabels) {
 
 export const app = express();
 
-app.use(cors());
+app.get("/model/:file", (req: Request<{ file: keyof typeof fileMapper }>, res) => {
+    const {file} = req.params;
+    
+    if (file) {
+        https.get(fileMapper[file], externalRes => {
+            const body: Buffer[] = [];
+            
+            externalRes.on("data", chunk => body.push(chunk));
+            
+            externalRes.on("end", () => res.end(Buffer.concat(body)));
+        });
+    } else {
+        res.status(404);
+        res.end();
+    }
+});
 
-app.use("/model", express.static("resources/model.json"));
+app.use(cors());
 app.use("/labels", express.static("resources/labels.json"));
 
 export const server = http

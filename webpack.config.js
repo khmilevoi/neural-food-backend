@@ -1,6 +1,9 @@
 const path = require("path");
-
+const webpack = require("webpack")
+const dotenv = require("dotenv")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+dotenv.config()
 
 module.exports = {
   entry: "./src/index.ts",
@@ -30,5 +33,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+      new CleanWebpackPlugin(),
+      new webpack.EnvironmentPlugin({
+        "process.env.SERP_API": process.env.SERP_API
+      })
+  ],
 };
