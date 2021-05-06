@@ -1,7 +1,7 @@
 import SerpApi from 'google-search-results-nodejs'
 import fs from 'fs/promises'
 
-const search = new SerpApi.GoogleSearch("d0f12a55372c985edd4c9a27bfb57b29cea0b4ac05c041ce5ed043796485eee8")
+const search = new SerpApi.GoogleSearch(process.env.SERP_API)
 
 const getImages = (name: string) => {
     const params: SerpApi.Params = {
