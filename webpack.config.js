@@ -7,14 +7,15 @@ dotenv.config()
 
 module.exports = {
   entry: "./src/index.ts",
-  mode: "production",
+  mode: "development",
+  target: "node",
+  devtool: "source-map",
   output: {
     filename: `[name].js`,
     chunkFilename: `[name].js`,
     publicPath: "/",
     path: path.resolve("./dist/"),
   },
-  target: "node",
   resolve: {
     extensions: [".ts", ".js", ".json"],
     modules: ["./node_modules", "./src"].map((p) => path.resolve(p)),
@@ -34,9 +35,10 @@ module.exports = {
     ],
   },
   plugins: [
-      new CleanWebpackPlugin(),
-      new webpack.EnvironmentPlugin({
-        "process.env.SERP_API": process.env.SERP_API
-      })
+    new CleanWebpackPlugin(),
+    new webpack.EnvironmentPlugin({
+      "process.env.SERP_API": process.env.SERP_API,
+    }),
   ],
+  externals: ["commonjs2 firebase-admin"],
 };
