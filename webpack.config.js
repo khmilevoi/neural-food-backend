@@ -1,9 +1,9 @@
 const path = require("path");
-const webpack = require("webpack")
-const dotenv = require("dotenv")
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-dotenv.config()
+dotenv.config();
 
 module.exports = {
   entry: "./src/index.ts",
@@ -37,7 +37,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.EnvironmentPlugin({
-      "process.env.SERP_API": process.env.SERP_API,
+      SERP_API: process.env.SERP_API,
+      ADMINSDK: process.env.ADMINSDK,
     }),
   ],
   externals: ["commonjs2 firebase-admin"],

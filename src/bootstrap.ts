@@ -18,8 +18,9 @@ createModelFolder();
 
 const createStorage = () => {
   
-  const file = fsSync.readFileSync('./security/firebase-adminsdk.json').toString()
-  const credential = JSON.parse(file);
+  const file = process.env.ADMINSDK ?? "{}";
+  
+  const credential = JSON.parse(JSON.parse(`"${file}"`));
   
   firebase.initializeApp({
     credential: firebase.credential.cert(credential),
